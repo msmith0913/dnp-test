@@ -44,7 +44,7 @@
 		omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv')
 		.on('ready', function(layer) {
 			this.eachLayer(function(marker) {
-				marker.bindPopup("<b>Organization: </b>" + marker.toGeoJSON().properties.organization_name + "<br><b>Location:</b> " + marker.toGeoJSON().properties.location + "<br><b>Site type: </b>" + marker.toGeoJSON().properties.site_type + "<br><b>Need: </b>" + marker.toGeoJSON().properties.focus + "<br><b>Remote work:" + marker.toGeoJSON().properties.remote + "<br><b>Explanation of remote work: </b>" + marker.toGeoJson().properties.remote_explanation);
+				marker.bindPopup("<b>Organization: </b>" + marker.toGeoJSON().properties.organization_name + "<br><b>Location:</b> " + marker.toGeoJSON().properties.location + "<br><b>Site type: </b>" + marker.toGeoJSON().properties.site_type + "<br><b>Need: </b>" + marker.toGeoJSON().properties.focus + "<br><b>Remote work:" + marker.toGeoJSON().properties.remote);
 		});
 	})
 	.addTo(map);
@@ -55,6 +55,7 @@
 
 	<iframe title="Area Nursing Projects" aria-label="Table" id="datawrapper-chart-f2KQr" src="https://datawrapper.dwcdn.net/f2KQr/1/" scrolling="no" frameborder="0" style="border: none;" width=100% height="565" data-external="1"></iframe>
 </body>
+
 
 
 
