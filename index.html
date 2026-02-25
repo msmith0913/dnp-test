@@ -40,21 +40,30 @@
 
 		L.tileLayer('https://api.maptiler.com/maps/topo/{z}/{x}/{y}.png?key=4CI3hvSGGwgJXODif6KH', {attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
 		}).addTo(map);
-		var remote = L.geoJson(null, {
-    filter: function() {
-                return feature.remote == "Yes";
-            },
-        return true;
-    }
-});
 
-var myLayer = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, remote);
+		var remoteLayer = L.geoJson(null, {
+        filter: function(layer) {
+            if (layer.properties.remote == "Yes")
+                return true;
+        }
+    });
+    var inPersonLayer = L.geoJson(null, {
+        filter: function(layer) {
+            if (layer.properties.remote == "No")
+                return true;
+        }
+    });
+
+	var remote = omnivore.csv('data/all.csv', null, remoteLayer)
+	var inPerson = omnivore.csv('data/all.csv', null, inPersonLayer)
+	
 	</script>
 
 </script>
 
 	<iframe title="Area Nursing Projects" aria-label="Table" id="datawrapper-chart-f2KQr" src="https://datawrapper.dwcdn.net/f2KQr/1/" scrolling="no" frameborder="0" style="border: none;" width=100% height="565" data-external="1"></iframe>
 </body>
+
 
 
 
