@@ -40,21 +40,22 @@
 
 		L.tileLayer('https://api.maptiler.com/maps/topo/{z}/{x}/{y}.png?key=4CI3hvSGGwgJXODif6KH', {attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
 		}).addTo(map);
+		var remote = L.geoJson(null, {
+    filter: function() {
+                return feature.remote == "Yes";
+            },
+        return true;
+    }
+});
 
-		omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv')
-		.on('ready', function(layer) {
-			this.eachLayer(function(marker) {
-				marker.bindPopup("<b>Organization: </b>" + marker.toGeoJSON().properties.organization_name + "<br><b>Location:</b> " + marker.toGeoJSON().properties.address + "<br><b>Site type: </b>" + marker.toGeoJSON().properties.site_type + "<br><b>Need: </b>" + marker.toGeoJSON().properties.focus + "<br><b>Remote work: </b>" + marker.toGeoJSON().properties.remote + "<br><b>Explanation of remote work: </b>" + marker.toGeoJSON().properties.remote_explanation);
-		});
-	})
-	.addTo(map);
-
+var myLayer = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, remote);
 	</script>
 
 </script>
 
 	<iframe title="Area Nursing Projects" aria-label="Table" id="datawrapper-chart-f2KQr" src="https://datawrapper.dwcdn.net/f2KQr/1/" scrolling="no" frameborder="0" style="border: none;" width=100% height="565" data-external="1"></iframe>
 </body>
+
 
 
 
