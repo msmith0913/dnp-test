@@ -41,13 +41,31 @@
 		L.tileLayer('https://api.maptiler.com/maps/topo/{z}/{x}/{y}.png?key=4CI3hvSGGwgJXODif6KH', {attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
 		}).addTo(map);
 
+		function remoteStyle(layer) {
+            return {
+                fillColor: "#45b39d",
+                fillOpacity: .75,
+                color: '#45b39d',
+            };
+        }
+
+		function inPersonStyle(layer) {
+            return {
+                fillColor: "#ec7063",
+                fillOpacity: .75,
+                color: '#ec7063',
+            };
+        }
+
 		var remoteLayer = L.geoJson(null, {
+		style: remoteStyle,
         filter: function(layer) {
             if (layer.properties.remote == "Yes")
                 return true;
         }
     });
     var inPersonLayer = L.geoJson(null, {
+		style: inPersonStyle,
         filter: function(layer) {
             if (layer.properties.remote == "No")
                 return true;
@@ -65,6 +83,7 @@
 
 	<iframe title="Area Nursing Projects" aria-label="Table" id="datawrapper-chart-f2KQr" src="https://datawrapper.dwcdn.net/f2KQr/1/" scrolling="no" frameborder="0" style="border: none;" width=100% height="565" data-external="1"></iframe>
 </body>
+
 
 
 
