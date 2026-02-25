@@ -1,4 +1,4 @@
-
+		
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +11,7 @@
    crossorigin=""></script>
 	 <link rel="stylesheet" href="https://submissionstrategies.com/css/L.Control.Layers.Tree.css"/>
 	 <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script>
+	
 <style>
 		#map {
 			position: relative;
@@ -41,20 +42,21 @@
 		L.tileLayer('https://api.maptiler.com/maps/topo/{z}/{x}/{y}.png?key=4CI3hvSGGwgJXODif6KH', {attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
 		}).addTo(map);
 
-		var greenIcon = L.icon({
-    iconUrl: 'https://leafletjs.com/examples/custom-icons/leaf-green.png',
-    shadowUrl: 'https://leafletjs.com/examples/custom-icons/leaf-shadow.png',
-
-    iconSize:     [38, 95],
-    shadowSize:   [50, 64], 
-    iconAnchor:   [22, 94],
-    shadowAnchor: [4, 62],
-    popupAnchor:  [-3, -76]
-});
+		var castleIcon = L.icon({
+			iconUrl: 'https://submissionstrategies.com/media/castleicon.png',
+			iconSize: [],
+			popupAnchor: [-3, -76],
+		});
+		
+		var churchIcon = L.icon({
+			iconUrl: 'https://submissionstrategies.com/media/churchicon.png',
+			iconSize: [17, 17],
+			popupAnchor: [-3, -76],
+		});
 
 		function remoteStyle(feature) {
             return {
-                icon: greenIcon,
+                icon: castleIcon,
             };
         }
 
@@ -92,6 +94,7 @@
 
 	<iframe title="Area Nursing Projects" aria-label="Table" id="datawrapper-chart-f2KQr" src="https://datawrapper.dwcdn.net/f2KQr/1/" scrolling="no" frameborder="0" style="border: none;" width=100% height="565" data-external="1"></iframe>
 </body>
+
 
 
 
