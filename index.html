@@ -69,7 +69,7 @@
         }
 
 		var remoteLayer = L.geoJson(null, {
-		style: remoteStyle
+		style: remoteStyle,
         filter: function(layer) {
             if (layer.properties.remote == "Yes")
                 return true;
@@ -94,6 +94,7 @@
 
 	<iframe title="Area Nursing Projects" aria-label="Table" id="datawrapper-chart-f2KQr" src="https://datawrapper.dwcdn.net/f2KQr/1/" scrolling="no" frameborder="0" style="border: none;" width=100% height="565" data-external="1"></iframe>
 </body>
+
 
 
 
