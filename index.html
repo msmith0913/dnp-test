@@ -45,11 +45,11 @@
     iconUrl: 'https://leafletjs.com/examples/custom-icons/leaf-green.png',
     shadowUrl: 'https://leafletjs.com/examples/custom-icons/leaf-shadow.png',
 
-    iconSize:     [38, 95], // size of the icon
-    shadowSize:   [50, 64], // size of the shadow
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    shadowAnchor: [4, 62],  // the same for the shadow
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    iconSize:     [38, 95],
+    shadowSize:   [50, 64], 
+    iconAnchor:   [22, 94],
+    shadowAnchor: [4, 62],
+    popupAnchor:  [-3, -76]
 });
 
 		function remoteStyle(feature) {
@@ -69,7 +69,6 @@
         }
 
 		var remoteLayer = L.geoJson(null, {
-		icon: greenIcon,
         filter: function(layer) {
             if (layer.properties.remote == "Yes")
                 return true;
@@ -83,7 +82,7 @@
         }
     });
 
-	var remote = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, remoteLayer);
+	var remote = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, remoteLayer), {icon: greenIcon};
 	var inPerson = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, inPersonLayer);
 
 		var allLayers = L.layerGroup([remoteLayer, inPersonLayer]).addTo(map);
@@ -94,6 +93,7 @@
 
 	<iframe title="Area Nursing Projects" aria-label="Table" id="datawrapper-chart-f2KQr" src="https://datawrapper.dwcdn.net/f2KQr/1/" scrolling="no" frameborder="0" style="border: none;" width=100% height="565" data-external="1"></iframe>
 </body>
+
 
 
 
