@@ -1,4 +1,4 @@
-		
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +11,6 @@
    crossorigin=""></script>
 	 <link rel="stylesheet" href="https://submissionstrategies.com/css/L.Control.Layers.Tree.css"/>
 	 <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script>
-	
 <style>
 		#map {
 			position: relative;
@@ -42,54 +41,20 @@
 		L.tileLayer('https://api.maptiler.com/maps/topo/{z}/{x}/{y}.png?key=4CI3hvSGGwgJXODif6KH', {attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
 		}).addTo(map);
 
-		var castleIcon = L.icon({
-			iconUrl: 'https://submissionstrategies.com/media/castleicon.png',
-			iconSize: [],
-			popupAnchor: [-3, -76],
+		omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv')
+		.on('ready', function(layer) {
+			this.eachLayer(function(marker) {
+				marker.bindPopup("<b>Organization: </b>" + marker.toGeoJSON().properties.organization_name + "<br><b>Location:</b> " + marker.toGeoJSON().properties.address + "<br><b>Site type: </b>" + marker.toGeoJSON().properties.site_type + "<br><b>Need: </b>" + marker.toGeoJSON().properties.focus + "<br><b>Remote work: </b>" + marker.toGeoJSON().properties.remote + "<br><b>Explanation of remote work: </b>" + marker.toGeoJSON().properties.remote_explanation);
 		});
-		
-		var churchIcon = L.icon({
-			iconUrl: 'https://submissionstrategies.com/media/churchicon.png',
-			iconSize: [17, 17],
-			popupAnchor: [-3, -76],
-		});
+	})
+	.addTo(map);
 
-		var remoteLayer = L.geoJson(null, {
-		icon: castleIcon,
-        filter: function(layer) {
-            if (layer.properties.remote == "Yes")
-                return true;
-        }
-    });
-    var inPersonLayer = L.geoJson(null, {
-        filter: function(layer) {
-            if (layer.properties.remote == "No")
-                return true;
-        }
-    });
-
-	var remote = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, remoteLayer);
-	var inPerson = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, inPersonLayer);
-
-		var allLayers = L.layerGroup([remoteLayer, inPersonLayer]).addTo(map);
-	
 	</script>
 
 </script>
 
 	<iframe title="Area Nursing Projects" aria-label="Table" id="datawrapper-chart-f2KQr" src="https://datawrapper.dwcdn.net/f2KQr/1/" scrolling="no" frameborder="0" style="border: none;" width=100% height="565" data-external="1"></iframe>
 </body>
-
-
-
-
-
-
-
-
-
-
-
 
 
 
