@@ -104,15 +104,15 @@
 	var inPerson = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, inPersonLayer);
 	var proposed = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, proposedLayer);
 
-var entityTree = {
-	label: '<strong>Phase</strong>',
+	var submissionsTree = {
+	label: '<strong><i>Submissions</i></strong>',
 	selectAllCheckbox: 'Un/select all',
 	children: [
-				{ label: 'Complete', layer: complete },
-				{ label: 'Ongoing', layer: ongoing },
-				{ label: 'Proposed', layer: proposed }					
-	]
-};
+			{ label: 'Complete', layer: completed },
+			{ label: 'Ongoing', layer: ongoing },
+			{ label: 'Proposed', layer: proposed }
+			]
+		};
 
 		L.control.layers.tree(null, entityTree).addTo(map);
 		
