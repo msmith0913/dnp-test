@@ -78,28 +78,8 @@
 	var remote = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, remoteLayer);
 	var inPerson = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, inPersonLayer);
 
-		var allLayers = L.layerGroup([remoteLayer, inPersonLayer]).addTo(map);
+		var layerControl = L.control.layers(remoteLayer, inPersonLayer).addTo(map);
 
-	var entityTree = {
-	label: '<strong><i>Project Status</i></strong>',
-	selectAllCheckbox: 'Un/select all',
-	children: [
-		{
-				label: '<strong>Completed</strong>',
-				selectAllCheckbox: true,
-				},
-		{
-			label: '<strong>Ongoing</strong>',
-			selectAllCheckbox: true,
-		},
-		{
-			label: '<strong>Proposed</strong>',
-			selectAllCheckbox: true,
-			}
-	]
-};
-
-L.control.layers.tree(null, entityTree).addTo(map);
 	
 	</script>
 
