@@ -105,23 +105,14 @@
 var entityTree = {
 	label: '<strong>Projects</strong>',
 	selectAllCheckbox: 'Un/select all',
-	children: [
-		{
+	children: {
 				label: '<strong>Phase</strong>',
 				selectAllCheckbox: true,
 				children: [
 						{ label: 'Complete', layer: complete },
 						{	label: 'Ongoing', layer: ongoing },
 						{	label: 'Proposed', layer: proposed }					]
-				},
-		{
-			label: '<strong>Work Type</strong>',
-			selectAllCheckbox: true,
-			children: [
-				{ label: 'Remote', layer: remote },
-				{	label: 'In person', layer: inPerson }			]
-		}
-	]
+				}
 };
 
 		L.control.layers.tree(null, entityTree).addTo(map);
