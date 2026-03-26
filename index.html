@@ -9,7 +9,7 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>
-	 <link rel="stylesheet" href="https://submissionstrategies.com/css/L.Control.Layers.Tree.css"/>
+	 <link rel="stylesheet" href="https://msmith0913.github.io/dnp-test/layers/L.Control.Layers.Tree.css"/>
 	 <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script>
 	
 <!--Set map position and style-->
@@ -30,6 +30,7 @@
 	<title>DNP Project Directory</title>
 </head>
 <body>
+	<script src='https://msmith0913.github.io/dnp-test/layers/L.Control.Layers.Tree.js'></script>
 	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
 <!--Set map title--> 
     <h1>DNP Project Directory</h1>
@@ -78,6 +79,27 @@
 	var inPerson = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, inPersonLayer);
 
 		var allLayers = L.layerGroup([remoteLayer, inPersonLayer]).addTo(map);
+
+	var entityTree = {
+	label: '<strong><i>Project Status</i></strong>',
+	selectAllCheckbox: 'Un/select all',
+	children: [
+		{
+				label: '<strong>Completed</strong>',
+				selectAllCheckbox: true,
+				},
+		{
+			label: '<strong>Ongoing</strong>',
+			selectAllCheckbox: true,
+		},
+		{
+			label: '<strong>Proposed</strong>',
+			selectAllCheckbox: true,
+			}
+	]
+};
+
+L.control.layers.tree(null, entityTree).addTo(map);
 	
 	</script>
 
