@@ -74,13 +74,58 @@
         }
     });
 
+	var completeLayer = L.geoJson(null, {
+    	filter: function(layer) {
+            if (layer.properties.phase == "Complete")
+                return true;
+        }
+    });
+
+	var ongoingLayer = L.geoJson(null, {
+        filter: function(layer) {
+            if (layer.properties.phase == "Ongoing")
+                return true;
+        }
+    });
+
+	var proposedLayer = L.geoJson(null, {
+        filter: function(layer) {
+            if (layer.properties.phase == "Proposed")
+                return true;
+        }
+    });
+
 // Import all layers		
 	var remote = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, remoteLayer);
 	var inPerson = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, inPersonLayer);
+	var proposed = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, proposedLayer);
+	var ongoing = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, ongoingLayer);
+	var complete = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, completeLayer);
 
-		var layerControl = L.control.layers(remoteLayer, inPersonLayer).addTo(map);
+var entityTree = {
+	label: '<strong>Projects</strong>',
+	selectAllCheckbox: 'Un/select all',
+	children: [
+		{
+				label: '<strong>Phase</strong>',
+				selectAllCheckbox: true,
+				children: [
+						{ label: 'Complete', layer: complete },
+						{	label: 'Ongoing', layer: ongoing },
+						{	label: 'Proposed', layer: proposed }					]
+				},
+		{
+			label: '<strong>Work Type</strong>',
+			selectAllCheckbox: true,
+			children: [
+				{ label: 'Remote', layer: remote },
+				{	label: 'In person', layer: inPerson }			]
+		}
+	]
+};
 
-	
+		L.control.layers.tree(null, entityTree).addTo(map);
+		
 	</script>
 
 </script>
