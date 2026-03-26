@@ -74,10 +74,33 @@
         }
     });
 
+	var completeLayer = L.geoJson(null, {
+    	filter: function(layer) {
+            if (layer.properties.phase == "Complete")
+                return true;
+        }
+    });
+
+	var ongoingLayer = L.geoJson(null, {
+        filter: function(layer) {
+            if (layer.properties.phase == "Ongoing")
+                return true;
+        }
+    });
+
+	var proposedLayer = L.geoJson(null, {
+        filter: function(layer) {
+            if (layer.properties.phase == "Proposed")
+                return true;
+        }
+    });
+
 // Import all layers		
 	var remote = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, remoteLayer);
 	var inPerson = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, inPersonLayer);
-
+	var proposed = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, proposedLayer);
+	var ongoing = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, ongoingLayer);
+	var complete = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, completeLayer);
 		var allLayers = L.layerGroup([remoteLayer, inPersonLayer]).addTo(map);
 
 	var entityTree = {
@@ -87,14 +110,17 @@
 		{
 				label: '<strong>Completed</strong>',
 				selectAllCheckbox: true,
+				layer: completed,
 				},
 		{
 			label: '<strong>Ongoing</strong>',
 			selectAllCheckbox: true,
+			layer: ongoing,
 		},
 		{
 			label: '<strong>Proposed</strong>',
 			selectAllCheckbox: true,
+			layer: proposed,
 			}
 	]
 };
