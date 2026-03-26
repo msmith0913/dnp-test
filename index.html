@@ -101,7 +101,6 @@
 	var proposed = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, proposedLayer);
 	var ongoing = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, ongoingLayer);
 	var complete = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, completeLayer);
-		var allLayers = L.layerGroup([remoteLayer, inPersonLayer]).addTo(map);
 
 	var entityTree = {
 	label: '<strong><i>Project Status</i></strong>',
@@ -110,17 +109,17 @@
 		{
 				label: '<strong>Completed</strong>',
 				selectAllCheckbox: true,
-				layer: completed,
+				layer: completed
 				},
 		{
 			label: '<strong>Ongoing</strong>',
 			selectAllCheckbox: true,
-			layer: ongoing,
+			layer: ongoing
 		},
 		{
 			label: '<strong>Proposed</strong>',
 			selectAllCheckbox: true,
-			layer: proposed,
+			layer: proposed
 			}
 	]
 };
