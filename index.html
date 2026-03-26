@@ -103,16 +103,13 @@
 	var complete = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, completeLayer);
 
 var entityTree = {
-	label: '<strong>Projects</strong>',
+	label: '<strong>Phase</strong>',
 	selectAllCheckbox: 'Un/select all',
-	children: {
-				label: '<strong>Phase</strong>',
-				selectAllCheckbox: true,
-				children: [
-						{ label: 'Complete', layer: complete },
-						{	label: 'Ongoing', layer: ongoing },
-						{	label: 'Proposed', layer: proposed }					]
-				}
+	children: [
+				{ label: 'Complete', layer: complete },
+				{ label: 'Ongoing', layer: ongoing },
+				{ label: 'Proposed', layer: proposed }					
+	]
 };
 
 		L.control.layers.tree(null, entityTree).addTo(map);
