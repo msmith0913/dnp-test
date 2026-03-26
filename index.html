@@ -47,6 +47,9 @@
 		L.tileLayer('https://api.maptiler.com/maps/topo/{z}/{x}/{y}.png?key=4CI3hvSGGwgJXODif6KH', {attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
 		}).addTo(map);
 
+		var data = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null);
+
+
 // Add and set icons
 		var castleIcon = L.icon({
 			iconUrl: 'https://submissionstrategies.com/media/castleicon.png',
@@ -60,35 +63,35 @@
 			popupAnchor: [-3, -76],
 		});
 
-		var remoteLayer = L.geoJson(null, {
+		var remoteLayer = L.geoJson(data, {
 		icon: churchIcon,
         filter: function(layer) {
             if (layer.properties.remote == "Yes")
                 return true;
         }
     });
-    var inPersonLayer = L.geoJson(null, {
+    var inPersonLayer = L.geoJson(data, {
         filter: function(layer) {
             if (layer.properties.remote == "No")
                 return true;
         }
     });
 
-	var completeLayer = L.geoJson(null, {
+	var completeLayer = L.geoJson(data, {
     	filter: function(layer) {
             if (layer.properties.phase == "Complete")
                 return true;
         }
     });
 
-	var ongoingLayer = L.geoJson(null, {
+	var ongoingLayer = L.geoJson(data, {
         filter: function(layer) {
             if (layer.properties.phase == "Ongoing")
                 return true;
         }
     });
 
-	var proposedLayer = L.geoJson(null, {
+	var proposedLayer = L.geoJson(data, {
         filter: function(layer) {
             if (layer.properties.phase == "Proposed")
                 return true;
