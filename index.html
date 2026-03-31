@@ -68,28 +68,31 @@
         }
     });
     var inPersonLayer = L.geoJson(null, {
-        filter: function(layer) {
+		filter: function(layer) {
             if (layer.properties.remote == "No")
                 return true;
         }
     });
 
 	var completeLayer = L.geoJson(null, {
-    	filter: function(layer) {
+    	icon: castleIcon
+		filter: function(layer) {
             if (layer.properties.phase == "Complete")
                 return true;
         }
     });
 
 	var ongoingLayer = L.geoJson(null, {
-        filter: function(layer) {
+        icon: churchIcon
+		filter: function(layer) {
             if (layer.properties.phase == "Ongoing")
                 return true;
         }
     });
 
 	var proposedLayer = L.geoJson(null, {
-        filter: function(layer) {
+        icon: churchIcon
+		filter: function(layer) {
             if (layer.properties.phase == "Proposed")
                 return true;
         }
