@@ -50,7 +50,7 @@
 // Add and set icons
 		var castleIcon = L.icon({
 			iconUrl: 'https://submissionstrategies.com/media/castleicon.png',
-			iconSize: [],
+			iconSize: [17, 17],
 			popupAnchor: [-3, -76],
 		});
 		
@@ -75,7 +75,7 @@
     });
 
 	var completeLayer = L.geoJson(null, {
-    	icon: castleIcon
+    	icon: castleIcon,
 		filter: function(layer) {
             if (layer.properties.phase == "Complete")
                 return true;
@@ -83,7 +83,7 @@
     });
 
 	var ongoingLayer = L.geoJson(null, {
-        icon: churchIcon
+        icon: churchIcon,
 		filter: function(layer) {
             if (layer.properties.phase == "Ongoing")
                 return true;
@@ -91,7 +91,7 @@
     });
 
 	var proposedLayer = L.geoJson(null, {
-        icon: churchIcon
+        icon: churchIcon,
 		filter: function(layer) {
             if (layer.properties.phase == "Proposed")
                 return true;
