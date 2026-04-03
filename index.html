@@ -105,6 +105,8 @@
 	var ongoing = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, ongoingLayer);
 	var complete = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, completeLayer);
 
+	var allLayers = L.layerGroup([completeLayer,ongoingLayer,proposedLayer]).addTo(map;
+		
 	var entityTree = {
 	label: '<strong><i>Project Status</i></strong>',
 	selectAllCheckbox: 'Un/select all',
