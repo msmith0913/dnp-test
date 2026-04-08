@@ -47,6 +47,21 @@
 		L.tileLayer('https://api.maptiler.com/maps/topo/{z}/{x}/{y}.png?key=4CI3hvSGGwgJXODif6KH', {attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
 		}).addTo(map);
 
+// const layersByAttribute = {};
+// Load the csv using Papa parse and divide csv into layers by attribute
+	// Papa.parse('data.csv', {
+			// download: true,
+			// header: true,
+			// dynamicTyping: true,
+			// complete: function(results) {
+				// results.data.forEach(row => {
+				// if (!row.lat || !row.lng) return;
+				// var attrValue = row.attribute_name;
+				// if (!layersByAttribute[attrValue]) {
+					// layersByAttribute[attrValue] = L.layerGroup();
+					// }
+				// const marker = L.marker([row.lat, row.lng])
+		
 // Add and set icons
 		var castleIcon = L.icon({
 			iconUrl: 'https://submissionstrategies.com/media/castleicon.png',
