@@ -11,6 +11,7 @@
    crossorigin=""></script>
 	 <link rel="stylesheet" href="https://msmith0913.github.io/dnp-test/layers/L.Control.Layers.Tree.css"/>
 	 <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script>
+	<script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
 	
 <!--Set map position and style-->
 <style>
@@ -47,117 +48,34 @@
 		L.tileLayer('https://api.maptiler.com/maps/topo/{z}/{x}/{y}.png?key=4CI3hvSGGwgJXODif6KH', {attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
 		}).addTo(map);
 
-// const layersByAttribute = {};
+const layersByAttribute = {};
 // Load the csv using Papa parse and divide csv into layers by attribute
-	// Papa.parse('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', {
-		// download: true,
-		// header: true,
-		// dynamicTyping: true,
-		// complete: function(results) {
-			// results.data.forEach(row => {
-				// if (!row.latitude || !row.longitude || !row.phase) return;
-				// var phase = row.phase.trim();
-				// if (!layersByAttribute[phase]) {
-					// layersByAttribute[phase] = L.layerGroup();
-				// }
-				// const marker = L.marker([row.latitude, row.longitude]) //bind popup goes here
+	Papa.parse('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', {
+		download: true,
+		header: true,
+		dynamicTyping: true,
+		complete: function(results) {
+			results.data.forEach(row => {
+				if (!row.latitude || !row.longitude || !row.phase) return;
+				var phase = row.phase.trim();
+				if (!layersByAttribute[phase]) {
+					layersByAttribute[phase] = L.layerGroup();
+				}
+				const marker = L.marker([row.latitude, row.longitude]) //bind popup goes here
 	
-				// layersByAttribute[phase].addLayer(marker);
-			//});
+				layersByAttribute[phase].addLayer(marker);
+			});
 		
-			// const overlayMaps = {};
-			// for (const category in layersByAttribute) {
-				// layers[category].addTo(map);
-				// overlayMaps[category] = layersByAttribute[category];
-			//}
-
-			// L.control.layersByAttribute(null, overlayMaps, {collapsed: false}).addTo(map);
-		// },	
-	// });
-		
-		
-// Add and set icons
-		var castleIcon = L.icon({
-			iconUrl: 'https://submissionstrategies.com/media/castleicon.png',
-			iconSize: [17, 17],
-			popupAnchor: [-3, -76],
-		});
-		
-		var churchIcon = L.icon({
-			iconUrl: 'https://submissionstrategies.com/media/churchicon.png',
-			iconSize: [17, 17],
-			popupAnchor: [-3, -76],
-		});
-
-		var remoteLayer = L.geoJson(null, {
-		icon: churchIcon,
-        filter: function(layer) {
-            if (layer.properties.remote == "Yes")
-                return true;
-        }
-    });
-    var inPersonLayer = L.geoJson(null, {
-		filter: function(layer) {
-            if (layer.properties.remote == "No")
-                return true;
-        }
-    });
-
-	var completeLayer = L.geoJson(null, {
-    	icon: castleIcon,
-		filter: function(layer) {
-            if (layer.properties.phase == "Complete")
-                return true;
-        }
-    });
-
-	var ongoingLayer = L.geoJson(null, {
-        icon: churchIcon,
-		filter: function(layer) {
-            if (layer.properties.phase == "Ongoing")
-                return true;
-        }
-    });
-
-	var proposedLayer = L.geoJson(null, {
-        icon: churchIcon,
-		filter: function(layer) {
-            if (layer.properties.phase == "Proposed")
-                return true;
-        }
-    });
-
-// Import all layers		
-	var remote = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, remoteLayer);
-	var inPerson = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, inPersonLayer);
-	var proposed = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, proposedLayer);
-	var ongoing = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, ongoingLayer);
-	var complete = omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', null, completeLayer);
-
-		
-	var entityTree = {
-	label: '<strong><i>Project Status</i></strong>',
-	selectAllCheckbox: 'Un/select all',
-	children: [
-		{
-				label: '<strong>Completed</strong>',
-				selectAllCheckbox: true,
-				layer: completed
-				},
-		{
-			label: '<strong>Ongoing</strong>',
-			selectAllCheckbox: true,
-			layer: ongoing
-		},
-		{
-			label: '<strong>Proposed</strong>',
-			selectAllCheckbox: true,
-			layer: proposed
+			const overlayMaps = {};
+			for (const category in layersByAttribute) {
+				layers[category].addTo(map);
+				overlayMaps[category] = layersByAttribute[category];
 			}
-	]
-};
 
-L.control.layers.tree(null, entityTree).addTo(map);
+			L.control.layersByAttribute(null, overlayMaps, {collapsed: false}).addTo(map);
+		},	
+	});
+
 	
 	</script>
 
