@@ -62,7 +62,7 @@ const completeLayer = L.layerGroup();
   L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
  
   omnivore
-    .csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv%27)
+    .csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv')
     .on('ready', function () {
       this.eachLayer(function (marker) {
         const props = marker.toGeoJSON().properties;
