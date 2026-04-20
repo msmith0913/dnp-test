@@ -48,106 +48,53 @@
 		L.tileLayer('https://api.maptiler.com/maps/topo/{z}/{x}/{y}.png?key=4CI3hvSGGwgJXODif6KH', {attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
 		}).addTo(map);
 
-const layersByAttribute = {};
-// Load the csv using Papa parse and divide csv into layers by attribute
-	Papa.parse('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv', {
-		download: true,
-		header: true,
-		dynamicTyping: true,
-		complete: function(results) {
-			results.data.forEach(row => {
-				if (!row.latitude || !row.longitude || !row.phase) return;
-				var phase = row.phase.trim();
-				if (!layersByAttribute[phase]) {
-					layersByAttribute[phase] = L.layerGroup();
-				}
-				const marker = L.marker([row.latitude, row.longitude]) //bind popup goes here
-	
-				layersByAttribute[phase].addLayer(marker);
-			});
-		
-			const overlayMaps = {};
-			for (const category in layersByAttribute) {
-				layers[category].addTo(map);
-				overlayMaps[category] = layersByAttribute[category];
-			}
-
-			L.control.layersByAttribute(null, overlayMaps, {collapsed: false}).addTo(map);
-		},	
-	});
-	
-<!DOCTYPE html>
-<html>
-<head>
-	  <link rel="stylesheet" href="https://submissionstrategies.com/css/r2.css" />
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-   crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-   crossorigin=""></script>
-	 <link rel="stylesheet" href="https://submissionstrategies.com/css/L.Control.Layers.Tree.css"/>
-	 <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script>
-<style>
-		#map {
-			position: relative;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			width: 80%;
-			height: 600px;
-		}
-	</style>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>DNP Project Directory</title>
-</head>
-<body>
-	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
-
-    <h1>DNP Project Directory</h1>
-
-<div style="margin: auto" id = "map"></div>
-	<script>
-		var map = L.map('map', {
-			center: [38.62718883493524, -90.17973025660817],
-			zoom: 9
-		});
-
-		L.tileLayer('https://api.maptiler.com/maps/topo/{z}/{x}/{y}.png?key=4CI3hvSGGwgJXODif6KH', {attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
-		}).addTo(map);
-
-		omnivore.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv')
-		.on('ready', function(layer) {
-			this.eachLayer(function(marker) {
-				marker.bindPopup("<b>Organization: </b>" + marker.toGeoJSON().properties.organization_name + "<br><b>Location:</b> " + marker.toGeoJSON().properties.address + "<br><b>Site type: </b>" + marker.toGeoJSON().properties.site_type + "<br><b>Need: </b>" + marker.toGeoJSON().properties.focus + "<br><b>Remote work: </b>" + marker.toGeoJSON().properties.remote + "<br><b>Explanation of remote work: </b>" + marker.toGeoJSON().properties.remote_explanation);
-		});
-	})
-	.addTo(map);
-
-	</script>
-
+// Layers		
+const completeLayer = L.layerGroup();
+  const proposedLayer = L.layerGroup();
+  const ongoingLayer = L.layerGroup();
+ 
+  const overlayMaps = {
+    "Complete": completeLayer,
+    "Proposed": proposedLayer,
+    "Ongoing": ongoingLayer
+  };
+ 
+  L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
+ 
+  omnivore
+    .csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv%27)
+    .on('ready', function () {
+      this.eachLayer(function (marker) {
+        const props = marker.toGeoJSON().properties;
+        const phase = (props.phase || '').trim().toLowerCase();
+ 
+        marker.bindPopup(
+          "<b>Organization: </b>" + props.organization_name +
+          "<br><b>Location:</b> " + props.address +
+          "<br><b>Site type: </b>" + props.site_type +
+          "<br><b>Need: </b>" + props.focus +
+          "<br><b>Remote work: </b>" + props.remote +
+          "<br><b>Explanation of remote work: </b>" + props.remote_explanation +
+          "<br><b>Phase: </b>" + props.phase
+        );
+ 
+        if (phase === 'complete') {
+          completeLayer.addLayer(marker);
+        } else if (phase === 'proposed') {
+          proposedLayer.addLayer(marker);
+        } else if (phase === 'ongoing') {
+          ongoingLayer.addLayer(marker);
+        }
+      });
+ 
+      completeLayer.addTo(map);
+      proposedLayer.addTo(map);
+      ongoingLayer.addTo(map);
+    });
 </script>
 
+</script>
+<p>&nbsp;</p>
 	<iframe title="Area Nursing Projects" aria-label="Table" id="datawrapper-chart-f2KQr" src="https://datawrapper.dwcdn.net/f2KQr/1/" scrolling="no" frameborder="0" style="border: none;" width=100% height="565" data-external="1"></iframe>
 </body>
 
-
-
-
-
-
-
-
-
-	
-	</script>
-
-</script>
-
-<p>&nbsp;</p>
-<!--Add Datawrapper table-->
-	<iframe title="Area Nursing Projects" aria-label="Table" id="datawrapper-chart-f2KQr" src="https://datawrapper.dwcdn.net/f2KQr/1/" scrolling="yes" frameborder="0" style="border: none;" width=100% height="565" data-external="1"></iframe>
-	<br><br><br><br><br>
-</body>
