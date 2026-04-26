@@ -49,14 +49,14 @@
 		}).addTo(map);
 
 // Layers		
-const completeLayer = L.layerGroup();
-  const proposedLayer = L.layerGroup();
-  const ongoingLayer = L.layerGroup();
+const completedLayer = L.layerGroup();
+  const activeLayer = L.layerGroup();
+  const futureLayer = L.layerGroup();
  
   const overlayMaps = {
-    "Complete": completeLayer,
-    "Proposed": proposedLayer,
-    "Ongoing": ongoingLayer
+    "Completed": completedLayer,
+    "Active": activeLayer,
+    "Future": futureLayer
   };
  
   L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
@@ -78,18 +78,18 @@ const completeLayer = L.layerGroup();
           "<br><b>Phase: </b>" + props.phase
         );
  
-        if (phase === 'complete') {
-          completeLayer.addLayer(marker);
-        } else if (phase === 'proposed') {
-          proposedLayer.addLayer(marker);
-        } else if (phase === 'ongoing') {
-          ongoingLayer.addLayer(marker);
+        if (phase === 'completed') {
+          completedLayer.addLayer(marker);
+        } else if (phase === 'future') {
+          futureLayer.addLayer(marker);
+        } else if (phase === 'active') {
+          activeLayer.addLayer(marker);
         }
       });
  
-      completeLayer.addTo(map);
-      proposedLayer.addTo(map);
-      ongoingLayer.addTo(map);
+      completedLayer.addTo(map);
+      futureLayer.addTo(map);
+      activeLayer.addTo(map);
     });
 </script>
 
