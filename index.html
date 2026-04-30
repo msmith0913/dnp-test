@@ -70,12 +70,12 @@ const completedLayer = L.layerGroup();
  
         marker.bindPopup(
           "<b>Organization: </b>" + props.organization_name +
-          "<br><b>Location:</b> " + props.address +
-          "<br><b>Site type: </b>" + props.site_type +
-          "<br><b>Need: </b>" + props.focus +
-          "<br><b>Remote work: </b>" + props.remote +
-          "<br><b>Explanation of remote work: </b>" + props.remote_explanation +
-          "<br><b>Phase: </b>" + props.phase
+          "<br><b>Project Title:</b> " + props.project_title +
+          "<br><b>Description: </b>" + props.focus +
+          "<br><b>Site Type: </b>" + props.site_type +
+          "<br><b>Location: </b>" + props.address +
+          "<br><b>Population: </b>" + props.pop_focus +
+          "<br><b>Project Status: </b>" + props.phase
         );
  
         if (phase === 'completed') {
