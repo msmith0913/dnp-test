@@ -60,8 +60,8 @@ var churchIcon = L.icon({
 });
 
 // Layers		
-const completedLayer = L.layerGroup(icon: castleIcon);
-  const activeLayer = L.layerGroup(icon: churchIcon);
+const completedLayer = L.layerGroup({icon: castleIcon});
+  const activeLayer = L.layerGroup({icon: churchIcon});
   const futureLayer = L.layerGroup();
  
   const overlayMaps = {
