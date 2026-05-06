@@ -48,9 +48,20 @@
 		L.tileLayer('https://api.maptiler.com/maps/topo/{z}/{x}/{y}.png?key=4CI3hvSGGwgJXODif6KH', {attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
 		}).addTo(map);
 
+var castleIcon = L.icon({
+	iconUrl: 'https://submissionstrategies.com/media/castleicon.png',
+	iconSize: [],
+	popupAnchor: [-3, -76],
+});
+var churchIcon = L.icon({
+	iconUrl: 'https://submissionstrategies.com/media/churchicon.png',
+	iconSize: [17, 17],
+	popupAnchor: [-3, -76],
+});
+
 // Layers		
-const completedLayer = L.layerGroup();
-  const activeLayer = L.layerGroup();
+const completedLayer = L.layerGroup(icon: castleIcon);
+  const activeLayer = L.layerGroup(icon: churchIcon);
   const futureLayer = L.layerGroup();
  
   const overlayMaps = {
