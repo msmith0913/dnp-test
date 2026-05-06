@@ -90,7 +90,7 @@ const completedLayer = L.layerGroup();
         );
  
         if (phase === 'completed') {
-          completedLayer.addLayer(icon: castleIcon);
+          completedLayer.addLayer({icon: castleIcon});
         } else if (phase === 'future') {
           futureLayer.addLayer(marker);
         } else if (phase === 'active') {
