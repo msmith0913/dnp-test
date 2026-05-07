@@ -90,7 +90,7 @@ const completedLayer = L.layerGroup();
         );
  
         if (phase === 'completed') {
-          completedLayer.addLayer(marker(icon: castleIcon));
+          completedLayer.addLayer;
         } else if (phase === 'future') {
           futureLayer.addLayer(marker);
         } else if (phase === 'active') {
@@ -98,8 +98,8 @@ const completedLayer = L.layerGroup();
         }
       });
  
-      completedLayer.addTo(map);
-      futureLayer.addTo(map);
+      completedLayer({icon: castleIcon}).addTo(map);
+      futureLayer({icon: churchIcon}).addTo(map);
       activeLayer.addTo(map);
     });
 </script>
