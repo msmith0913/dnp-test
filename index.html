@@ -90,7 +90,7 @@ const completedLayer = L.layerGroup();
         );
  
         if (phase === 'completed') {
-          completedLayer.addLayer;
+          completedLayer.addLayer(marker);
         } else if (phase === 'future') {
           futureLayer.addLayer(marker);
         } else if (phase === 'active') {
