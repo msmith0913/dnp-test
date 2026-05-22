@@ -55,15 +55,17 @@
 const completedLayer = L.markerClusterGroup();
   const activeLayer = L.markerClusterGroup();
   const futureLayer = L.markerClusterGroup();
+const allLayer = L.markerClusterGroup();
     
  
-  const overlayMaps = {
-    "Completed": completedLayer,
+  const baseMaps = {
+    "All Projects": allLayer,
+	"Completed": completedLayer,
     "Active": activeLayer,
     "Future": futureLayer
   };
  
-  L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
+  L.control.layers(baseMaps, null, { collapsed: false }).addTo(map);
     
   omnivore
     .csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv')
@@ -92,9 +94,10 @@ const completedLayer = L.markerClusterGroup();
       });
 
   
-      completedLayer.addTo(map);
-      futureLayer.addTo(map);
-      activeLayer.addTo(map);
+    completedLayer.addTo(allLayer);
+    futureLayer.addTo(allLayer);
+    activeLayer.addTo(allLayer);
+	allLayer.addTo(map);
     });
 </script>
 
