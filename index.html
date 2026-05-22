@@ -12,6 +12,8 @@
 	 <link rel="stylesheet" href="https://msmith0913.github.io/dnp-test/layers/L.Control.Layers.Tree.css"/>
 	 <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script>
 	<script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+      <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
+      <script src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js"></script>
 	
 <!--Set map position and style-->
 <style>
@@ -47,11 +49,13 @@
 // Add basemap	
 		L.tileLayer('https://api.maptiler.com/maps/topo/{z}/{x}/{y}.png?key=4CI3hvSGGwgJXODif6KH', {attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
 		}).addTo(map);
+    
 
 // Layers		
-const completedLayer = L.layerGroup();
-  const activeLayer = L.layerGroup();
-  const futureLayer = L.layerGroup();
+const completedLayer = L.markerClusterGroup();
+  const activeLayer = L.markerClusterGroup();
+  const futureLayer = L.markerClusterGroup();
+    
  
   const overlayMaps = {
     "Completed": completedLayer,
@@ -60,15 +64,15 @@ const completedLayer = L.layerGroup();
   };
  
   L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
- 
+    
   omnivore
     .csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPRCWWzed2VBvqVAtg0PcXBEE-XCHypIAgrP167pekzUglTbVOXIMK4JnTo3S0nmv_mvh745bJycla/pub?output=csv')
     .on('ready', function () {
-      this.eachLayer(function (marker) {
-        const props = marker.toGeoJSON().properties;
+      this.eachLayer(function (pin) {
+        const props = pin.toGeoJSON().properties;
         const phase = (props.phase || '').trim().toLowerCase();
  
-        marker.bindPopup(
+        pin.bindPopup(
           "<b>Organization: </b>" + props.organization_name +
           "<br><b>Project Title:</b> " + props.project_title +
           "<br><b>Description: </b>" + props.focus +
@@ -79,14 +83,15 @@ const completedLayer = L.layerGroup();
         );
  
         if (phase === 'completed') {
-          completedLayer.addLayer(marker);
+          completedLayer.addLayer(pin);
         } else if (phase === 'future') {
-          futureLayer.addLayer(marker);
+          futureLayer.addLayer(pin);
         } else if (phase === 'active') {
-          activeLayer.addLayer(marker);
+          activeLayer.addLayer(pin);
         }
       });
- 
+
+  
       completedLayer.addTo(map);
       futureLayer.addTo(map);
       activeLayer.addTo(map);
@@ -98,4 +103,3 @@ const completedLayer = L.layerGroup();
 	<iframe title="Area Nursing Projects" aria-label="Table" id="datawrapper-chart-f2KQr" src="https://datawrapper.dwcdn.net/f2KQr/1/" scrolling="yes" frameborder="0" style="border: none;" width=100% height="565" data-external="1"></iframe>
 	<br><br><br><br><br>
 </body>
-
